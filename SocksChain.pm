@@ -1,8 +1,8 @@
 ########################################################################
 #
-# $Id: SocksChain.pm,v 1.2 2005/03/12 14:00:43 gosha Exp $
+# $Id: SocksChain.pm,v 1.3 2006/02/26 18:54:09 gosha Exp $
 #
-# Copyright (C) Igor V. Okunev gosha<at>prv.mts-nn.ru 2005
+# Copyright (C) Igor V. Okunev gosha<at>prv.mts-nn.ru 2005 - 2006
 #
 #      All rights reserved. This library is free software;
 #      you can redistribute it and/or modify it under the
@@ -17,7 +17,7 @@ use LWP::Protocol::http;
 
 @ISA = qw( LWP::Protocol::http );
 
-($VERSION='$Revision: 1.2 $')=~s/^\S+\s+(\S+)\s+.*/$1/;
+($VERSION='$Revision: 1.3 $')=~s/^\S+\s+(\S+)\s+.*/$1/;
 
 $^W = 1;
 
@@ -349,9 +349,40 @@ LWP::Protocol::http::SocksChain - Speak HTTP through Net::SC
 
  @LWP::Protocol::http::SocksChain::EXTRA_SOCK_OPTS = ( Chain_Len    => 1,
                                                        Debug        => 0,
-                                                       Random       => 1,
+                                                       Random_Chain => 1,
                                                        Auto_Save    => 1,
                                                        Restore_Type => 1 );
+
+ my $ua = LWP::UserAgent->new();
+
+ my $req = HTTP::Request->new(
+              GET => 'http://home.sinn.ru/~gosha/perl-scripts/');
+
+ my $res = $ua->request($req) || die $!;
+
+ if ($res->is_success) {
+  ...
+ } else {
+  ...
+ }
+
+
+ or
+
+
+ use LWP::UserAgent;
+ use LWP::Protocol::http::SocksChain;
+ LWP::Protocol::implementor( http => 'LWP::Protocol::http::SocksChain' );
+
+ @LWP::Protocol::http::SocksChain::EXTRA_SOCK_OPTS = ( Chain_Len    => 1,
+                                                       Debug        => 0,
+                                                       Random_Chain => 1,
+                                                       Chain_File_Data => [
+                                                          '2x0.41.23.164:1080:::4:383 b/s Argentina',
+                                                          '24.2x2.88.160:1080:::4:1155 b/s Argentina',
+                                                       ],
+                                                       Auto_Save    => 0,
+                                                       Restore_Type => 0 );
 
  my $ua = LWP::UserAgent->new();
 
@@ -389,7 +420,7 @@ LWP, LWP::Protocol, Net::SC
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2005 by Igor V. Okunev
+Copyright (C) 2005 - 2006  by Igor V. Okunev
 
 All rights reserved. This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
