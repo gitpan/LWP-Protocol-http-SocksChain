@@ -25,7 +25,9 @@ SYNOPSIS
       ...
      }
 
+
      or
+
 
      use LWP::UserAgent;
      use LWP::Protocol::http::SocksChain;
