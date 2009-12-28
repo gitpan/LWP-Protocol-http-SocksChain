@@ -1,8 +1,8 @@
 ########################################################################
 #
-# $Id: SocksChain.pm,v 1.6 2009-11-21 20:26:05 gosha Exp $
+# $Id: SocksChain.pm,v 1.7 2009-12-28 15:12:16 gosha Exp $
 #
-# Copyright (C) Igor V. Okunev gosha<at>prv.mts-nn.ru 2005 - 2006
+# Copyright (C) Igor V. Okunev gosha<at>prv.mts-nn.ru 2005 - 2009
 #
 #      All rights reserved. This library is free software;
 #      you can redistribute it and/or modify it under the
@@ -17,7 +17,7 @@ use LWP::Protocol::http;
 
 @ISA = qw( LWP::Protocol::http );
 
-($VERSION='$Revision: 1.6 $')=~s/^\S+\s+(\S+)\s+.*/$1/;
+($VERSION='$Revision: 1.7 $')=~s/^\S+\s+(\S+)\s+.*/$1/;
 
 local $^W = 1;
 
